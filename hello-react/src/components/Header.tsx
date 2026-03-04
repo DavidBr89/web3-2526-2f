@@ -100,6 +100,10 @@ interface HeaderProps {
   width?: number;
 }
 
+const handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+  console.log("Geklikt op: ", event.target);
+};
+
 const Header = ({ title, subtitle, width = 150 }: HeaderProps) => {
   // const { title, subtitle } = props;
 
@@ -120,7 +124,9 @@ const Header = ({ title, subtitle, width = 150 }: HeaderProps) => {
         </button>
       </div>
       <div>Header</div>
-      <MyButton>Klik mij vanuit Header</MyButton>
+      <MyButton id="anotherId" onClick={handleClick} className="bg-teal-500">
+        Klik mij vanuit Header
+      </MyButton>
     </div>
   );
 };
