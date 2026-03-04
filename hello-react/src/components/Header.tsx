@@ -1,5 +1,9 @@
 // import styles from "./Header.module.css";
 
+import MyButton from "./MyButton";
+import SubTitle from "./SubTitle";
+import Title from "./Title";
+
 // const logoURL: string = "https://hogent.be";
 // const aNumber = 5;
 
@@ -90,16 +94,33 @@
 //   lName: "Breckx",
 //   studentNumber: 23,
 // });
+interface HeaderProps {
+  title: string;
+  subtitle: string;
+  width?: number;
+}
 
-const Header = () => {
+const Header = ({ title, subtitle, width = 150 }: HeaderProps) => {
+  // const { title, subtitle } = props;
+
   return (
     // <div className={styles.header}>
-    <div>
+    // <div style={{ backgroundColor: "red", width: width }}>
+    // TODO: Tailwind via interpolatie
+    <div className="bg-web-300" style={{ width: width }}>
+      <Title title={title} />
+      <SubTitle subTitle={subtitle} />
       <div>
         <p className="text-5xl">Test</p>
-        <button>Test BTN</button>
+        <button>
+          <div>
+            <img />
+            <p>Test</p>
+          </div>
+        </button>
       </div>
       <div>Header</div>
+      <MyButton>Klik mij vanuit Header</MyButton>
     </div>
   );
 };
