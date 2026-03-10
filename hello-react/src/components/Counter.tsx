@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MyButton from "./MyButton";
+import Favorites from "./Favorites";
 
 interface CounterProps {
   startCount: number;
@@ -23,8 +24,6 @@ const Counter = ({ startCount, isCountShown }: CounterProps) => {
     age: 0,
   });
 
-  //   TODO: Nummers in favorieten steken en tonen op het scherm in aparte component
-
   return (
     <div className="p-4 border-2 m-4">
       {isCountShown && <p>De waarde van de counter is: {count}</p>}
@@ -32,7 +31,7 @@ const Counter = ({ startCount, isCountShown }: CounterProps) => {
         <MyButton
           onClick={() => {
             setCount(count - 1);
-            setStudent({ fName: "John", lName: "Doe" });
+            setStudent({ fName: "John", lName: "Doe", age: 35 });
             console.log(count);
           }}>
           -
@@ -46,6 +45,8 @@ const Counter = ({ startCount, isCountShown }: CounterProps) => {
           +
         </MyButton>
       </div>
+      <Favorites counter={count} />
+      <p>{student.fName}</p>
     </div>
   );
 };

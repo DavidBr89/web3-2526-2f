@@ -110,7 +110,6 @@ const Header = ({ title, subtitle, width = 150 }: HeaderProps) => {
   return (
     // <div className={styles.header}>
     // <div style={{ backgroundColor: "red", width: width }}>
-    // TODO: Tailwind via interpolatie
     <div className="bg-web-300" style={{ width: width }}>
       <Title title={title} />
       <SubTitle subTitle={subtitle} />

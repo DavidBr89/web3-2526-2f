@@ -5,6 +5,7 @@ import Counter from "./components/Counter";
 import Header from "./components/Header";
 import MyButton from "./components/MyButton";
 import Title from "./components/Title";
+import ToggleCounter from "./components/ToggleCounter";
 
 function App() {
   const title = "Web 3 vanuit variabele";
@@ -24,13 +25,7 @@ function App() {
         <Title title="Knop titel" />
       </MyButton>
 
-      {/* TODO: ToggleCounter component maken met correcte werking en typing */}
-      <MyButton
-        onClick={() => {
-          setIsCountShown(!isCountShown);
-        }}>
-        Toggle Counter
-      </MyButton>
+      <ToggleCounter setIsCountShown={setIsCountShown} />
 
       {/* Conditioneel renderen */}
       {/* {isCountShown && <Counter startCount={23} />} */}
