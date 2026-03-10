@@ -1,7 +1,13 @@
+// import EffectsPlayground from "./components/EffectsPlayground";
 import MoviesPage from "./pages/MoviesPage";
 
 function App() {
-  return <MoviesPage />;
+  return (
+    <>
+      {/* <EffectsPlayground /> */}
+      <MoviesPage />
+    </>
+  );
 }
 
 export default App;
