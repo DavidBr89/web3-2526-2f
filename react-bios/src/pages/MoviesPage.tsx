@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import MovieItem from "../components/MovieItem";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 // import { type Movie } from "../types";
 
 interface MovieResponse {

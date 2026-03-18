@@ -7,20 +7,34 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import ContactPage from "./pages/ContactPage.tsx";
 import MoviesPage from "./pages/MoviesPage.tsx";
 import DetailsPage from "./pages/DetailsPage.tsx";
+import RootLayout from "./layouts/RootLayout.tsx";
 
 const browserRouter = createBrowserRouter([
   {
-    path: "/",
-    element: <MoviesPage />,
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/",
+        element: <MoviesPage />,
+      },
+      {
+        path: "/contact",
+        element: <ContactPage />,
+      },
+      {
+        path: "/movies/:movieId",
+        element: <DetailsPage />,
+      },
+    ],
   },
-  {
-    path: "/contact",
-    element: <ContactPage />,
-  },
-  {
-    path: "/movies/:id",
-    element: <DetailsPage />,
-  },
+  // {
+  //   path: "/admin",
+  //   element: <AdminLayout />,
+  //   children: [],
+  // },
+  // {
+  //   path: "/auth",
+  // },
 ]);
 
 createRoot(document.getElementById("root")!).render(

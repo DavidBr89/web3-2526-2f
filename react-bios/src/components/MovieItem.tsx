@@ -18,11 +18,16 @@ const MovieItem = ({ movie }: MovieItemProps) => {
       // onClick={() => {
       //   navigate(`movies/${movie.id}`);
       // }}
+      // <div
+      //   onClick={() => {
+      //     navigate(`movies/${movie.id}`, { state: { movieId: movie.id } });
+      //   }}
       className="shadow-lg rounded-xl overflow-clip hover:scale-105">
       <img src={`${BASE_IMAGE_URL}${movie.poster_path}`} />
       <p className="text-teal-600 font-bold text-2xl h-20 text-center ">
         {movie.title}
       </p>
+      {/* </div> */}
     </Link>
   );
 };
