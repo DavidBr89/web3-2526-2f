@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Axios from "axios";
+import { movieAxios } from "../api/movieApi";
 
+// https://api.themoviedb.org/3/movie/popular
 const BASE_FIND_URL = "https://api.themoviedb.org/3/movie/";
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original";
 
 const DetailsPage = () => {
   const { movieId } = useParams();
+
+  // TODO: Converteer dit naar React Query opgelet queryKey is nu ook met de id
 
   const [movie, setMovie] = useState<Movie>();
   const [isLoading, setIsLoading] = useState(false);
@@ -17,11 +21,13 @@ const DetailsPage = () => {
     (async () => {
       try {
         setIsLoading(true);
-        const response = await Axios.get<Movie>(`${BASE_FIND_URL}${movieId}`, {
-          headers: {
-            Authorization: import.meta.env.VITE_TMDB_API_KEY,
-          },
-        });
+        // const response = await Axios.get<Movie>(`${BASE_FIND_URL}${movieId}`, {
+        //   headers: {
+        //     Authorization: import.meta.env.VITE_TMDB_API_KEY,
+        //   },
+        // });
+
+        const response = await movieAxios.get<Movie>(`/${movieId}`);
 
         setMovie(response.data);
       } catch (error) {

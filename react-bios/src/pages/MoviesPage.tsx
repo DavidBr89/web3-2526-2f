@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import MovieItem from "../components/MovieItem";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { useQuery } from "@tanstack/react-query";
+import { movieAxios } from "../api/movieApi";
 // import { type Movie } from "../types";
 
 interface MovieResponse {
@@ -70,14 +69,16 @@ const MoviesPage = () => {
   const { data, isLoading, isError, error, refetch, dataUpdatedAt } = useQuery({
     queryKey: ["popularMovies"],
     queryFn: () => {
-      return Axios.get<MovieResponse>(
-        "https://api.themoviedb.org/3/movie/popular",
-        {
-          headers: {
-            Authorization: import.meta.env.VITE_TMDB_API_KEY,
-          },
-        },
-      );
+      return movieAxios.get<MovieResponse>("/popular");
+
+      // return Axios.get<MovieResponse>(
+      //   "https://api.themoviedb.org/3/movie/popular",
+      //   {
+      //     headers: {
+      //       Authorization: import.meta.env.VITE_TMDB_API_KEY,
+      //     },
+      //   },
+      // );
     },
     // enabled: false,
     // refetchInterval: 5000,
