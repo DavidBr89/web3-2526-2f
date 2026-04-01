@@ -1,13 +1,24 @@
+import MovieItem from "../components/MovieItem";
 import { useFavorites } from "../hooks/useFavorites";
 
 const FavoritesPage = () => {
-  // Context gaan gebruiken of consumeren
   const { favs } = useFavorites();
 
-  // TODO: Alle favorieten tonen, MovieItem gebruiken
-  // Als er geen favorieten zijn toon dan een paragraaf met Geen favorieten
+  if (!favs.length) {
+    return (
+      <div>
+        <p>Geen favorieten...</p>
+      </div>
+    );
+  }
 
-  return <div>FavoritesPage</div>;
+  return (
+    <div className="grid grid-cols-3">
+      {favs.map((f) => {
+        return <MovieItem key={f.id} movie={f} />;
+      })}
+    </div>
+  );
 };
 
 export default FavoritesPage;
