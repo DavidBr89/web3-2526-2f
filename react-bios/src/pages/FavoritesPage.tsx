@@ -1,8 +1,15 @@
+// import { useQueryClient } from "@tanstack/react-query";
 import MovieItem from "../components/MovieItem";
 import { useFavorites } from "../hooks/useFavorites";
 
 const FavoritesPage = () => {
   const { favs } = useFavorites();
+
+  // const queryClient = useQueryClient();
+
+  // queryClient.invalidateQueries({
+  //   queryKey: ["fetchFavorites"],
+  // });
 
   if (!favs.length) {
     return (
