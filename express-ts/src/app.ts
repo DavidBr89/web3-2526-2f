@@ -5,6 +5,7 @@ import express from "express";
 
 import indexRouter from "./routes/index";
 import productsRouter from "./routes/products";
+import usersRouter from "./routes/users";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 // Routers
 app.use("/", indexRouter);
 app.use("/products", productsRouter)
+app.use("/users", usersRouter);
 
 
 export default app;
