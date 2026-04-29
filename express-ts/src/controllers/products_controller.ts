@@ -9,6 +9,8 @@ const productsController = {
 
         console.log(req.ip);
 
+        console.log(process.env.USER)
+
         if(lang === "nl") {
             console.log(color);
             return res.send("Alle producten");
