@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router";
 
 const Header = () => {
@@ -26,6 +25,20 @@ const Header = () => {
           }
           to="/favorites">
           Favorieten
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "underline underline-offset-8" : "no-underline"
+          }
+          to="/login">
+          Login
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "underline underline-offset-8" : "no-underline"
+          }
+          to="/register">
+          Register
         </NavLink>
       </div>
     </header>
