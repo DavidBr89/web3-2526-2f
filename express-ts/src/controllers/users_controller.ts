@@ -18,6 +18,25 @@ const usersController = {
             res.status(500).json({ code: 24242789427, message: "Fout met users"})
         }
     },
+    getById: async (req: Request & {userId: number, role: string}, res: Response) => {
+
+        try {
+            
+            const foundUser = await prisma.user.findUnique({
+                where: {
+                    id: req.userId
+                }
+            })
+
+            res.json(foundUser);
+
+
+        } catch (error) {
+            res.sendStatus(500);
+        }
+
+
+    },
     create: async (req: Request, res: Response) => {
 
         const userData = req.body;
@@ -55,6 +74,9 @@ const usersController = {
             })
 
             console.log(token);
+
+
+            res.cookie("bios_token", token, { httpOnly: true, expires: new Date(Date.now() + 15 * 60 * 1000), secure: false});
             
             res.status(201).json(newUser);
 
@@ -64,6 +86,51 @@ const usersController = {
         }
 
 
+
+
+    },
+    login: async (req: Request, res: Response) => {
+
+        const credentials = req.body;
+
+        try {
+            
+            const foundUser = await prisma.user.findUnique({
+                where: {
+                    email: credentials.email
+                }
+            })
+
+            if(!foundUser) {
+                return res.sendStatus(401);
+            }
+
+            const result = await bcrypt.compare(credentials.password, foundUser.password);
+
+            if(!result) {
+                return res.sendStatus(401);
+            }
+
+            const payload = {
+                sub: foundUser.id,
+                role: "USER"
+            }
+
+            const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
+                expiresIn: "15m",
+            })
+
+            res.cookie("bios_token", token, {
+                httpOnly: true,
+                expires: new Date(Date.now() + 15 * 60 * 1000)
+            })
+
+            res.send("Gebruiker ingelogd")
+
+
+        } catch (error) {
+            res.sendStatus(500);
+        }
 
 
     }

@@ -12,6 +12,7 @@ import FavoritesProvider from "./contexts/FavoritesContext.tsx";
 import FavoritesPage from "./pages/FavoritesPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
 
 const browserRouter = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const browserRouter = createBrowserRouter([
       {
         path: "/favorites",
         element: <FavoritesPage />,
+      },
+      {
+        path: "/profile",
+        element: <ProfilePage />,
       },
       {
         path: "/login",

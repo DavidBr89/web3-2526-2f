@@ -1,13 +1,16 @@
 import { Link } from "react-router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useMutation } from "@tanstack/react-query";
+
+import Axios from "axios";
 
 const loginValidationSchema = Yup.object({
   email: Yup.string()
     .email("Geef een geldig e-mailadres")
     .required("E-mail is verplicht"),
   password: Yup.string()
-    .min(8, "Wachtwoord moet minstens 8 karakters bevatten")
+    // .min(8, "Wachtwoord moet minstens 8 karakters bevatten")
     .required("Wachtwoord is verplicht"),
 });
 
@@ -17,6 +20,22 @@ interface LoginFormValues {
 }
 
 const LoginPage = () => {
+  const mutation = useMutation({
+    mutationKey: ["login"],
+    mutationFn: (data: { email: string; password: string }) => {
+      return Axios.post(
+        "http://localhost:3000/login",
+        {
+          email: data.email,
+          password: data.password,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+    },
+  });
+
   const {
     touched,
     values,
@@ -32,6 +51,8 @@ const LoginPage = () => {
     },
     validationSchema: loginValidationSchema,
     onSubmit: (values, helpers) => {
+      // Op dit punt vertrekt de eerder gemaakt POST request
+      mutation.mutate(values);
       console.log("Login data:", values);
       helpers.setSubmitting(false);
     },

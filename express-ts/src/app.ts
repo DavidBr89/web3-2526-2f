@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import indexRouter from "./routes/index";
 import productsRouter from "./routes/products";
@@ -11,6 +13,13 @@ const app = express();
 
 // JSON middleware -> om er voor te zorgen dat er JSON data in de body binnen komt
 app.use(express.json());
+// Cookie middleware
+app.use(cookieParser());
+// CORS middleware
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 
 // Application level middleware
 app.use((req, res, next) => {
