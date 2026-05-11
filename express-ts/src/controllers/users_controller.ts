@@ -18,7 +18,11 @@ const usersController = {
             res.status(500).json({ code: 24242789427, message: "Fout met users"})
         }
     },
-    getById: async (req: Request & {userId: number, role: string}, res: Response) => {
+    getById: async (req: Request, res: Response) => {
+
+        if (typeof req.userId !== "number") {
+            return res.sendStatus(401);
+        }
 
         try {
             

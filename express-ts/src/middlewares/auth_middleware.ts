@@ -1,9 +1,9 @@
 import {Request, Response, NextFunction} from "express";
 import jwt, { JsonWebTokenError, JwtPayload } from "jsonwebtoken";
 
-type JwonPayloadType = jwt.JwtPayload & {sub: number; role: string}
+type JwtPayloadType = JwtPayload & {sub: number; role: string}
 
-const authMiddleware = (req: Request & {userId: number, role: string}, res: Response, next: NextFunction) => {
+const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
    
     const cookies = req.cookies;
 
@@ -17,13 +17,23 @@ const authMiddleware = (req: Request & {userId: number, role: string}, res: Resp
         return res.sendStatus(401);
     }
 
-    jwt.verify(token, process.env.JWT_SECRET || "", (err: jwt.VerifyErrors | null , payload: JwonPayloadType) => {
+    jwt.verify(token, process.env.JWT_SECRET || "", (err: jwt.VerifyErrors | null , payload: string | JwtPayload | undefined) => {
         if (err) {
             return res.sendStatus(401);
         }
 
-        req.userId = payload.sub;
-        req.role = payload.role;
+        if (!payload || typeof payload === "string") {
+            return res.sendStatus(401);
+        }
+
+        const jwtPayload = payload as JwtPayloadType;
+
+        if (typeof jwtPayload.sub !== "number" || typeof jwtPayload.role !== "string") {
+            return res.sendStatus(401);
+        }
+
+        req.userId = jwtPayload.sub;
+        req.role = jwtPayload.role;
 
         next();
     })
