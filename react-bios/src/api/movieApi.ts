@@ -7,3 +7,8 @@ export const movieAxios = Axios.create({
             Authorization: import.meta.env.VITE_TMDB_API_KEY,
           },
 })
+
+export const expressAxios = Axios.create({
+  baseURL: "http://localhost:3000",
+  withCredentials: true
+})

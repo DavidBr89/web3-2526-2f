@@ -13,59 +13,19 @@ import FavoritesPage from "./pages/FavoritesPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
-
-const browserRouter = createBrowserRouter([
-  {
-    element: <RootLayout />,
-    children: [
-      {
-        path: "/",
-        element: <MoviesPage />,
-      },
-      {
-        path: "/contact",
-        element: <ContactPage />,
-      },
-      {
-        path: "/favorites",
-        element: <FavoritesPage />,
-      },
-      {
-        path: "/profile",
-        element: <ProfilePage />,
-      },
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/register",
-        element: <RegisterPage />,
-      },
-      {
-        path: "/movies/:movieId",
-        element: <DetailsPage />,
-      },
-    ],
-  },
-  // {
-  //   path: "/admin",
-  //   element: <AdminLayout />,
-  //   children: [],
-  // },
-  // {
-  //   path: "/auth",
-  // },
-]);
+import AuthProvider from "./contexts/AuthContext.tsx";
+import Root from "./components/Root.tsx";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <FavoritesProvider>
-        <RouterProvider router={browserRouter} />
-      </FavoritesProvider>
+      <AuthProvider>
+        <FavoritesProvider>
+          <Root />
+        </FavoritesProvider>
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 );

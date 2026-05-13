@@ -137,7 +137,13 @@ const usersController = {
         }
 
 
-    }
+    },
+    verify: async (req: Request, res: Response) => {
+        res.sendStatus(200);
+    },
+    logout: async (req: Request, res: Response) => {
+        res.clearCookie("bios_token").sendStatus(200);
+    } 
 }
 
 export default usersController

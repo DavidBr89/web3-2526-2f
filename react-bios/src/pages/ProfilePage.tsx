@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import Axios from "axios";
+import MyButton from "../components/MyButton";
+import { useAuth } from "../hooks/useAuth";
 
 interface ProfileResponse {
   id: number;
@@ -10,6 +12,8 @@ interface ProfileResponse {
 }
 
 const ProfilePage = () => {
+  const { logout } = useAuth();
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["profile"],
     queryFn: () => {
@@ -29,6 +33,8 @@ const ProfilePage = () => {
   return (
     <div>
       <p>{data?.data.email}</p>
+
+      <MyButton onClick={logout}>Logout</MyButton>
     </div>
   );
 };

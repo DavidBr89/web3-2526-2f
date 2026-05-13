@@ -1,9 +1,10 @@
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 
 import Axios from "axios";
+import { useAuth } from "../hooks/useAuth";
 
 const loginValidationSchema = Yup.object({
   email: Yup.string()
@@ -20,6 +21,12 @@ interface LoginFormValues {
 }
 
 const LoginPage = () => {
+  const { state } = useLocation();
+
+  const navigate = useNavigate();
+
+  const { setIsAuthenticated } = useAuth();
+
   const mutation = useMutation({
     mutationKey: ["login"],
     mutationFn: (data: { email: string; password: string }) => {
@@ -33,6 +40,14 @@ const LoginPage = () => {
           withCredentials: true,
         },
       );
+    },
+    onSuccess: () => {
+      setIsAuthenticated(true);
+      if (state && state.origin) {
+        navigate(`/${state.origin}`);
+      } else {
+        navigate("/");
+      }
     },
   });
 

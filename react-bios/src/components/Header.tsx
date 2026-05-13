@@ -1,6 +1,9 @@
 import { NavLink } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 const Header = () => {
+  const { isAuthenticated } = useAuth();
+
   return (
     <header className="flex justify-between px-8 py-4 bg-teal-600 text-white h-20">
       <p>Header</p>
@@ -26,20 +29,32 @@ const Header = () => {
           to="/favorites">
           Favorieten
         </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "underline underline-offset-8" : "no-underline"
-          }
-          to="/login">
-          Login
-        </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "underline underline-offset-8" : "no-underline"
-          }
-          to="/register">
-          Register
-        </NavLink>
+        {!isAuthenticated ? (
+          <>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "underline underline-offset-8" : "no-underline"
+              }
+              to="/login">
+              Login
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "underline underline-offset-8" : "no-underline"
+              }
+              to="/register">
+              Register
+            </NavLink>
+          </>
+        ) : (
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "underline underline-offset-8" : "no-underline"
+            }
+            to="/profile">
+            Profiel
+          </NavLink>
+        )}
       </div>
     </header>
   );
