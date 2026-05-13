@@ -69,7 +69,12 @@ const MoviesPage = () => {
   const { data, isLoading, isError, error, refetch, dataUpdatedAt } = useQuery({
     queryKey: ["popularMovies"],
     queryFn: () => {
-      return movieAxios.get<MovieResponse>("/popular");
+      return movieAxios.get<MovieResponse>("/popular", {
+        params: {
+          language: "nl-BE",
+          page: 5,
+        },
+      });
 
       // return Axios.get<MovieResponse>(
       //   "https://api.themoviedb.org/3/movie/popular",

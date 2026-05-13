@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+// import React from "react";
 import Axios from "axios";
 import MyButton from "../components/MyButton";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "react-oidc-context";
+// import { useAuth } from "../hooks/useAuth";
 
 interface ProfileResponse {
   id: number;
@@ -12,15 +13,21 @@ interface ProfileResponse {
 }
 
 const ProfilePage = () => {
-  const { logout } = useAuth();
+  // const { logout } = useAuth();
+
+  const { user, signoutRedirect } = useAuth();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["profile"],
     queryFn: () => {
       return Axios.get<ProfileResponse>("http://localhost:3000/users/profile", {
+        headers: {
+          Authorization: `Bearer ${user?.access_token}`,
+        },
         withCredentials: true,
       });
     },
+    enabled: false,
   });
 
   if (isLoading) {
@@ -32,9 +39,12 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <p>{data?.data.email}</p>
+      {/* <p>{data?.data.email}</p> */}
 
-      <MyButton onClick={logout}>Logout</MyButton>
+      {/* <MyButton onClick={logout}>Logout</MyButton> */}
+
+      <p>{JSON.stringify(user)}</p>
+      <MyButton onClick={() => signoutRedirect()}>Logout</MyButton>
     </div>
   );
 };

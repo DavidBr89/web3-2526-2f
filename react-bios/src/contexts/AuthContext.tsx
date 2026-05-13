@@ -6,7 +6,6 @@ import {
   type PropsWithChildren,
   type SetStateAction,
 } from "react";
-import Axios from "axios";
 import { expressAxios } from "../api/movieApi";
 
 interface AuthContextType {

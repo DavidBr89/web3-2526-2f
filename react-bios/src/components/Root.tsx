@@ -9,9 +9,10 @@ import ProfilePage from "../pages/ProfilePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import DetailsPage from "../pages/DetailsPage";
-import { useAuth } from "../hooks/useAuth";
+// import { useAuth } from "../hooks/useAuth";
 import LoadingPage from "../pages/LoadingPage";
 import ProtectedRoute from "./ProtectedRoute";
+import { useAuth } from "react-oidc-context";
 
 const browserRouter = createBrowserRouter([
   {
@@ -66,9 +67,14 @@ const browserRouter = createBrowserRouter([
 ]);
 
 const Root = () => {
-  const { isAuthLoading } = useAuth();
+  // Custom AuthenticationContext
+  // const { isAuthLoading } = useAuth();
 
-  if (isAuthLoading) {
+  // React OIDC
+
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
     return <LoadingPage />;
   }
 

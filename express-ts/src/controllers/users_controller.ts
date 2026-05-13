@@ -3,6 +3,8 @@ import { prisma } from "../config/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+import {validationResult} from "express-validator";
+
 const usersController = {
     getAll: async (req: Request, res: Response) => {
         try {
@@ -94,6 +96,12 @@ const usersController = {
 
     },
     login: async (req: Request, res: Response) => {
+
+        const result = validationResult(req);
+
+        if(!result.isEmpty()) {
+            return res.status(400).json(result.array())
+        }
 
         const credentials = req.body;
 

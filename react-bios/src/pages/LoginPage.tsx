@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 
 import Axios from "axios";
-import { useAuth } from "../hooks/useAuth";
+// import { useAuth } from "../hooks/useAuth";
 
 const loginValidationSchema = Yup.object({
   email: Yup.string()
@@ -25,7 +25,7 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  const { setIsAuthenticated } = useAuth();
+  // const { setIsAuthenticated } = useAuth();
 
   const mutation = useMutation({
     mutationKey: ["login"],
@@ -42,7 +42,7 @@ const LoginPage = () => {
       );
     },
     onSuccess: () => {
-      setIsAuthenticated(true);
+      // setIsAuthenticated(true);
       if (state && state.origin) {
         navigate(`/${state.origin}`);
       } else {

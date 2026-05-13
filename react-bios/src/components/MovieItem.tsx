@@ -17,6 +17,8 @@ const MovieItem = ({ movie }: MovieItemProps) => {
 
   const { isInFavorites, toggleFavorite } = useFavorites();
 
+  console.log(movie.overview);
+
   return (
     <div
       onClick={() => {
@@ -35,6 +37,7 @@ const MovieItem = ({ movie }: MovieItemProps) => {
       <p className="text-teal-600 font-bold text-2xl h-20 text-center ">
         {movie.title}
       </p>
+      <p className="text-teal-600">{movie.overview}</p>
       {/* </div> */}
       <button
         onClick={(event) => {

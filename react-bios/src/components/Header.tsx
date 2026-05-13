@@ -1,8 +1,10 @@
+import { useAuth } from "react-oidc-context";
 import { NavLink } from "react-router";
-import { useAuth } from "../hooks/useAuth";
+import MyButton from "./MyButton";
+// import { useAuth } from "../hooks/useAuth";
 
 const Header = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, signinRedirect } = useAuth();
 
   return (
     <header className="flex justify-between px-8 py-4 bg-teal-600 text-white h-20">
@@ -31,13 +33,19 @@ const Header = () => {
         </NavLink>
         {!isAuthenticated ? (
           <>
-            <NavLink
+            {/* <NavLink
               className={({ isActive }) =>
                 isActive ? "underline underline-offset-8" : "no-underline"
               }
               to="/login">
               Login
-            </NavLink>
+            </NavLink> */}
+            <MyButton
+              onClick={() => {
+                signinRedirect();
+              }}>
+              Login via IS
+            </MyButton>
             <NavLink
               className={({ isActive }) =>
                 isActive ? "underline underline-offset-8" : "no-underline"
